@@ -1,0 +1,11 @@
+node_modules
+
+coverage
+
+.cache
+.output
+.env
+
+build/
+public/build
+api/_build
