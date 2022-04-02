@@ -1,6 +1,6 @@
 import {
-  Links,
   LiveReload,
+  LoaderFunction,
   Meta,
   Outlet,
   Scripts,
@@ -9,6 +9,7 @@ import {
 import type { LinksFunction, MetaFunction } from "remix";
 
 import tailwindStylesheetUrl from "./tailwind.css";
+import { authenticator } from "./services/auth.server";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: tailwindStylesheetUrl }];
@@ -16,23 +17,29 @@ export const links: LinksFunction = () => {
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "Remix Notes",
+  title: "Messenger",
+  description: "A simple messenger by MineChannel",
   viewport: "width=device-width,initial-scale=1",
 });
 
+export let loader: LoaderFunction = async ({ request }) => {
+  // If the user is already authenticated redirect to /dashboard directly
+  const user = await authenticator.isAuthenticated(request, {});
+
+  return user;
+};
+
 export default function App() {
   return (
-    <html lang="en" className="h-full">
+    <html lang="it">
       <head>
         <Meta />
-        <Links />
       </head>
-      <body className="h-full">
-        aa
+      <body>
         <Outlet />
         <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        {/*  <Scripts /> */}
+        {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>
   );
