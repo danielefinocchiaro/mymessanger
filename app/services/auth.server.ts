@@ -4,7 +4,7 @@ import { sessionStorage } from "~/services/session.server";
 import { FormStrategy } from "remix-auth-form";
 import invariant from "invariant";
 import { db } from "~/utils/db.server";
-import { compare, hash } from "bcryptjs";
+import { compare, hash } from "bcrypt";
 
 const NUM_OF_SALTS = 10;
 

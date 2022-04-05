@@ -2,4 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .card {
+    @apply border-2 border-gray-100 shadow-lg mx-2 rounded-lg p-2;
+  }
 
+  .form input {
+    @apply border-2 border-gray-100 shadow-md rounded-lg p-1 my-2;
+  }
+
+  .btn-intent-success {
+    @apply bg-green-500 text-white;
+  }
+
+  .btn-intent-info {
+    @apply bg-blue-500 text-white;
+  }
+
+  .btn-intent-danger {
+    @apply bg-red-500 text-white;
+  }
+
+  .btn-intent-warning {
+    @apply bg-yellow-500 text-white;
+  }
+
+  .btn-sm {
+    @apply px-2 py-1;
+  }
+
+  .btn-md {
+    @apply px-4 py-2;
+  }
+
+  .btn-lg {
+    @apply px-6 py-3;
+  }
+  .btn-disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+}

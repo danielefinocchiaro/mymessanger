@@ -1,4 +1,5 @@
 import {
+  Links,
   LiveReload,
   LoaderFunction,
   Meta,
@@ -8,7 +9,7 @@ import {
 } from "remix";
 import type { LinksFunction, MetaFunction } from "remix";
 
-import tailwindStylesheetUrl from "./tailwind.css";
+import tailwindStylesheetUrl from "./styles/app.css";
 import { authenticator } from "./services/auth.server";
 
 export const links: LinksFunction = () => {
@@ -34,6 +35,7 @@ export default function App() {
     <html lang="it">
       <head>
         <Meta />
+        <Links />
       </head>
       <body>
         <Outlet />
