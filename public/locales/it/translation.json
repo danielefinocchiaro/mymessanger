@@ -1,0 +1,6 @@
+{
+  "Error": {
+    "PasswordConfirmRequired": "La password di conferma è obbligatoria",
+    "PasswordConfirmMatch": "Le due password non corrispondono"
+  }
+}

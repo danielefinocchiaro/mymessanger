@@ -1,4 +1,5 @@
 import {
+  json,
   Links,
   LiveReload,
   LoaderFunction,
@@ -6,11 +7,13 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "remix";
 import type { LinksFunction, MetaFunction } from "remix";
-
 import tailwindStylesheetUrl from "./styles/app.css";
 import { authenticator } from "./services/auth.server";
+import { useSetupTranslations } from "remix-i18next";
+import { i18n } from "./utils/i18n.server";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: tailwindStylesheetUrl }];
@@ -26,13 +29,16 @@ export const meta: MetaFunction = () => ({
 export let loader: LoaderFunction = async ({ request }) => {
   // If the user is already authenticated redirect to /dashboard directly
   const user = await authenticator.isAuthenticated(request, {});
-
-  return user;
+  let locale = await i18n.getLocale(request);
+  return json({ locale, user });
 };
 
 export default function App() {
+  const { locale } = useLoaderData();
+  useSetupTranslations(locale);
+
   return (
-    <html lang="it">
+    <html lang={locale}>
       <head>
         <Meta />
         <Links />
@@ -40,7 +46,7 @@ export default function App() {
       <body>
         <Outlet />
         <ScrollRestoration />
-        {/*  <Scripts /> */}
+        <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>

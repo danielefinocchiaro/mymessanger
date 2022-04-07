@@ -1,0 +1,6 @@
+{
+  "Error": {
+    "PasswordConfirmRequired": "Password confirmation is required",
+    "PasswordConfirmMatch": "Passwords must match"
+  }
+}
