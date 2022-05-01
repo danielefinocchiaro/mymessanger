@@ -26,15 +26,8 @@ export let authenticator = new Authenticator<User>(sessionStorage);
 // Tell the Authenticator to use the form strategy
 authenticator.use(
   new FormStrategy(async ({ form, context }) => {
-    let email = form.get("email");
-    let password = form.get("password");
-
-    // You can validate the inputs however you want
-    invariant(typeof email === "string", "email must be a string");
-    invariant(email.length > 0, "email must not be empty");
-
-    invariant(typeof password === "string", "password must be a string");
-    invariant(password.length > 0, "password must not be empty");
+    let email = form.get("email") as string;
+    let password = form.get("password") as string;
 
     // And finally, you can find, or create, the user
     let user = await db.user.findFirst({
@@ -43,13 +36,16 @@ authenticator.use(
       },
       include: { password: { select: { hash: true } } },
     });
-    invariant(user != null, "user must not be empty");
+
+    invariant(user != null, "Error.UserNotFound");
     invariant(user.password != null, "password must not be empty");
 
     if (await comparePassword(password, user.password.hash)) {
-      // And return the user as the Authenticator expects it
+      // Return the user as the Authenticator expects it
+      console.log("user found");
       return user;
     } else {
+      console.log("password not match");
       throw new Error("Password does not match");
     }
   }),

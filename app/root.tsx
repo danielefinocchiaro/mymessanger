@@ -22,15 +22,13 @@ export const links: LinksFunction = () => {
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
   title: "Messenger",
-  description: "A simple messenger by MineChannel",
+  description: "A simple messenger by danielefinocchiaro",
   viewport: "width=device-width,initial-scale=1",
 });
 
 export let loader: LoaderFunction = async ({ request }) => {
-  // If the user is already authenticated redirect to /dashboard directly
-  const user = await authenticator.isAuthenticated(request, {});
   let locale = await i18n.getLocale(request);
-  return json({ locale, user });
+  return json({ locale });
 };
 
 export default function App() {
